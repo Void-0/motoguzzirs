@@ -1,0 +1,25 @@
+# Dependency directories
+/node_modules
+
+# Webpack generated files
+/dist
+
+# Generated CSS files (if using a preprocessor)
+*.css.map
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Editor-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
