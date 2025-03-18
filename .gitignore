@@ -1,11 +1,11 @@
 # Dependency directories
 /node_modules
 
-# Webpack generated files
-/dist
-
-# Generated CSS files (if using a preprocessor)
-*.css.map
+# sources removed
+/src
+package.json
+package-lock.json
+webpack.config.js
 
 # Logs
 *.log
