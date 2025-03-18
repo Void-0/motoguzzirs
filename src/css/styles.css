@@ -19,7 +19,7 @@ header {
   color: #fff;
   position: relative;
   z-index: 1000;
-  border-bottom: solid 1px gray;
+  background-color: #00000054;
 }
 
 /* Logo styles */
@@ -71,7 +71,6 @@ header {
 
 .nav-item {
   position: relative;
-  margin-left: 20px;
 }
 
 .nav-link {
@@ -83,7 +82,7 @@ header {
 }
 
 .nav-link:hover {
-  background-color: #575757;
+  background-color: #afa6a678;
 }
 
 /* Dropdown */
@@ -91,16 +90,15 @@ header {
   position: absolute; /* Position relative to the parent nav-item */
   top: 100%;
   left: 0;
-  background-color: #444;
+  background-color: #1a1a1a;
   opacity: 0; /* Hidden initially */
   max-height: 0; /* Collapsed initially */
   overflow: hidden; /* Hide content */
   flex-direction: column;
-  min-width: 200px;
   padding: 0; /* No padding when hidden */
-  border-radius: 4px;
   transition: all 0.3s ease; /* Smooth transition effect */
   z-index: 100;
+  width: 100%;
 }
 
 /* Fix dropdown in certain layouts to static if needed */
@@ -120,14 +118,13 @@ header {
 }
 
 .dropdown a:hover {
-  background-color: #575757;
+  background-color: #afa6a678;
 }
 
 /* Show dropdown on hover (for desktop) */
 .nav-item:hover .dropdown {
   opacity: 1;
   max-height: 300px; /* Allow enough space for dropdown items */
-  padding: 10px 0; /* Expand padding */
 }
 
 /* For Mobile */
@@ -144,7 +141,7 @@ header {
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: #333;
+    background-color: #1a1a1af2;
     opacity: 0; /* Initially hidden */
     max-height: 0; /* Collapsed initially */
     overflow: hidden;
@@ -157,7 +154,6 @@ header {
   .menu-toggle:checked ~ .navbar {
     opacity: 1;
     max-height: 500px; /* Set max height based on content */
-    padding: 10px 0;
   }
 
   /* Dropdown (always expanded on mobile) */
@@ -166,14 +162,14 @@ header {
     opacity: 1; /* Make visible */
     max-height: none; /* Allow full height */
     overflow: visible; /* Let all content be visible */
-    padding: 10px 0; /* Add proper padding */
     display: flex; /* Ensure it's displayed and aligned */
     flex-direction: column; /* Stack items vertically */
+    background-color: unset;
   }
 
   /* Dropdown links fully visible */
   .dropdown a {
-    padding: 10px 15px; /* Ensure consistent spacing */
+    padding: 10px 10px 10px 30px;
   }
 
   /* Prevent hover/focus effects in dropdown */
@@ -181,7 +177,6 @@ header {
   .nav-item:focus-within .dropdown {
     opacity: 1;
     max-height: none;
-    padding: 10px 0;
     pointer-events: auto; /* Enable interaction */
   }
 
