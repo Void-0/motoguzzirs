@@ -66,13 +66,31 @@ module.exports = module.exports = (env, argv) => {
         {
           test: /\.css$/,
           use: [
-            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+            isProduction ? {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: '../', // Correct relative path for assets in extracted CSS
+              },
+            } : 'style-loader',
             {
               loader: 'css-loader',
               options: {
-                url: false, // Prevent Webpack from rewriting paths in CSS
+                url: true, // Prevent Webpack from rewriting paths in CSS
               },
             },
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    require('postcss-url')({
+                      url: 'rebase', // Rebase URLs to remain relative
+                    }),
+                  ],
+                },
+              },
+            },
+
           ],
         },
         {
