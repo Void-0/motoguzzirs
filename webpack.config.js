@@ -56,7 +56,7 @@ module.exports = module.exports = (env, argv) => {
     mode: isProduction ? 'production' : 'development',
     entry: generateEntries(),
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'docs'),
       filename: 'js/[name].[contenthash].bundle.js',
       publicPath: './',
       clean: true,
@@ -67,7 +67,12 @@ module.exports = module.exports = (env, argv) => {
           test: /\.css$/,
           use: [
             isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                url: false, // Prevent Webpack from rewriting paths in CSS
+              },
+            },
           ],
         },
         {
@@ -97,7 +102,7 @@ module.exports = module.exports = (env, argv) => {
     },
     devServer: {
       static: {
-        directory: path.join(__dirname, 'dist'),
+        directory: path.join(__dirname, 'docs'),
       },
       compress: true,
       port: 9000,
