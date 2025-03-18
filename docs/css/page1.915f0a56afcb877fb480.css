@@ -132,8 +132,6 @@ header {
 
 /* For Mobile */
 @media (max-width: 768px) {
-  font-size: 14px;
-
   /* Show hamburger menu */
   .hamburger {
     display: flex;
@@ -214,6 +212,7 @@ body {
   background-attachment: fixed; /* Fixes the background */
   background-size: cover; /* Ensures the background covers the entire viewport */
   background-repeat: no-repeat; /* Prevents repeating of the background */
+  background-position: center;
   display: flex;
   flex-direction: column;
   margin: 0; /* Removes undesirable gaps */
