@@ -1,0 +1,82 @@
+/*!* General reset *!*/
+/*body {*/
+/*  font-family: Arial, sans-serif;*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*}*/
+
+/*.menu {*/
+/*  background-color: #333;*/
+/*  padding: 0;*/
+/*}*/
+
+/*.menu ul {*/
+/*  list-style-type: none;*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  display: flex;*/
+/*}*/
+
+/*.menu-item {*/
+/*  position: relative; !* Allows positioning of dropdown boxes *!*/
+/*}*/
+
+/*.menu a {*/
+/*  color: white;*/
+/*  text-decoration: none;*/
+/*  padding: 1rem 2rem;*/
+/*  display: block;*/
+/*  transition: background-color 0.3s ease;*/
+/*}*/
+
+/*.menu a:hover {*/
+/*  background-color: #575757;*/
+/*}*/
+
+/*!* Dropdown menu style *!*/
+/*.dropdown {*/
+/*  position: absolute;*/
+/*  top: 100%; !* Positions below the menu link *!*/
+/*  left: 0;*/
+/*  background-color: #fff;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 4px;*/
+/*  padding: 0.5rem 0;*/
+/*  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+/*  width: 200px;*/
+/*  display: none; !* Hidden by default *!*/
+/*  z-index: 100;*/
+/*}*/
+
+/*.dropdown a {*/
+/*  color: #333;*/
+/*  text-decoration: none;*/
+/*  padding: 0.5rem 1rem;*/
+/*  display: block;*/
+/*  transition: background-color 0.3s ease, color 0.3s ease;*/
+/*}*/
+
+/*.dropdown a:hover {*/
+/*  background-color: #f5f5f5;*/
+/*  color: #000;*/
+/*}*/
+
+/*!* Show dropdown on hover *!*/
+/*.menu-item:hover .dropdown {*/
+/*  display: block; !* Dropdown becomes visible *!*/
+/*}*/
+
+/*!* Optional transition for dropdown *!*/
+/*.dropdown {*/
+/*  opacity: 0;*/
+/*  transform: translateY(-10px); !* Start slightly above *!*/
+/*  transition: all 0.3s ease;*/
+/*  visibility: hidden; !* Makes it completely non-interactive when hidden *!*/
+/*}*/
+
+/*.menu-item:hover .dropdown {*/
+/*  transform: translateY(0); !* Slide to its correct position *!*/
+/*  opacity: 1;*/
+/*  visibility: visible;*/
+/*}*/
+
