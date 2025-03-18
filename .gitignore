@@ -1,12 +1,6 @@
 # Dependency directories
 /node_modules
 
-# sources removed
-/src
-package.json
-package-lock.json
-webpack.config.js
-
 # Logs
 *.log
 npm-debug.log*
