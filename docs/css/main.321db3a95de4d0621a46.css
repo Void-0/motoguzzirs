@@ -215,7 +215,7 @@ body {
 }
 
 body.background-home {
-  background-image: url(../assets/images/motoguzzi0.jpg);
+  background-image: url(../4927c8fecb84c3e0c444.jpg);
 }
 
 h1 {
@@ -235,5 +235,27 @@ h1 {
   width: auto; /* Maintain aspect ratio */
   height: auto; /* Maintain aspect ratio */
   display: block; /* Ensure it's properly aligned */
+}
+
+a {
+  cursor: pointer;
+}
+
+.nav-link img {
+  max-width: 30px;
+}
+
+.nav-link img, .dropdown img {
+  max-width: 30px;
+}
+
+#language-switcher {
+  padding: 0 50px;
+}
+
+#language-switcher-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
