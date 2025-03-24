@@ -236,3 +236,15 @@ h1 {
   height: auto; /* Maintain aspect ratio */
   display: block; /* Ensure it's properly aligned */
 }
+
+a {
+  cursor: pointer;
+}
+
+.nav-link img {
+  max-width: 30px;
+}
+
+.nav-link img, .dropdown img {
+  max-width: 30px;
+}

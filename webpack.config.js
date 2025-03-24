@@ -1,11 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // NEW: Import the plugin
 const fs = require('fs');
 
-module.exports = module.exports = (env, argv) => {
-  // Detect environment
-  const isProduction = argv.mode === "production"; // Still rely on argv.mode for logic
+module.exports = (env, argv) => {
+  const isProduction = argv.mode === 'production';
 
   // Gather HTML files in src/pages
   const pages = fs.readdirSync('./src/pages').filter(fileName => fileName.endsWith('.html'));
@@ -70,13 +70,9 @@ module.exports = module.exports = (env, argv) => {
             'css-loader',
           ],
         },
-        {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: 'asset/resource',
-          generator: {
-            // Keep the folder structure intact and file names unchanged
-            filename: 'assets/images/[name][ext][query]',
-          },
+        { // Handle images through Webpack Asset Modules (only needed for imports in JS/CSS)
+          test: /\.(png|jpe?g|gif|svg)$/,
+          type: 'asset/resource'
         },
       ],
     },
@@ -89,6 +85,14 @@ module.exports = module.exports = (env, argv) => {
           }),
         ]
         : []),
+      new CopyWebpackPlugin({ // copy assets folder
+        patterns: [
+          {
+            from: path.resolve(__dirname, 'src/assets'),
+            to: 'assets',
+          },
+        ],
+      }),
     ],
     optimization: {
       splitChunks: {
@@ -104,4 +108,4 @@ module.exports = module.exports = (env, argv) => {
       hot: true,
     },
   };
-}
+};
