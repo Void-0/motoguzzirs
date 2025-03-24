@@ -76,12 +76,12 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((languageData) => {
         // Update the language switcher with the language name and icon
         const switcherContainer = document.querySelector('#language-switcher');
-        const switcherSpan = document.querySelector('#language-switcher span');
+        // const switcherSpan = document.querySelector('#language-switcher span');
         const switcherImg = switcherContainer.querySelector('img');
 
-        if (switcherSpan) {
-          switcherSpan.textContent = languageData.languageName;
-        }
+        // if (switcherSpan) {
+        //   switcherSpan.textContent = languageData.languageName;
+        // }
 
         if (switcherContainer) {
           if (switcherImg) {

@@ -248,3 +248,13 @@ a {
 .nav-link img, .dropdown img {
   max-width: 30px;
 }
+
+#language-switcher {
+  padding: 0 50px;
+}
+
+#language-switcher-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
