@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin'); // NEW: Import the plugin
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 
 module.exports = (env, argv) => {
@@ -13,13 +13,13 @@ module.exports = (env, argv) => {
   // Generate Webpack entry points dynamically
   function generateEntries() {
     const entries = {
-      main: ['./src/js/main.js', './src/css/styles.css'],
+      main: ['./src/js/main.js', './src/css/styles.scss'], // Updated to use SCSS instead of plain CSS
     };
 
     pages.forEach(page => {
       const name = page.replace('.html', '');
       const jsFile = `./src/js/pages/${name}.js`;
-      const cssFile = `./src/css/pages/${name}.css`;
+      const cssFile = `./src/css/pages/${name}.scss`; // Updated to look for SCSS files
 
       if (fs.existsSync(jsFile)) {
         entries[name] = entries[name] || [];
@@ -70,7 +70,15 @@ module.exports = (env, argv) => {
             'css-loader',
           ],
         },
-        { // Handle images through Webpack Asset Modules (only needed for imports in JS/CSS)
+        {
+          test: /\.scss$/, // SCSS rule added
+          use: [
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader', // In production, extract CSS files
+            'css-loader', // Translates CSS into CommonJS
+            'sass-loader', // Compiles SCSS to CSS
+          ],
+        },
+        {
           test: /\.(png|jpe?g|gif|svg)$/,
           type: 'asset/resource'
         },

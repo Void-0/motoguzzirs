@@ -10,6 +10,10 @@ body, ul, li, a {
   font-weight: 400;
 }
 
+a {
+  cursor: pointer;
+}
+
 /* Header styling */
 header {
   display: flex;
@@ -28,13 +32,13 @@ header {
   align-items: center;
   justify-content: center;
   margin-right: 20px;
-}
 
-.logo img {
-  max-height: 70px; /* Set acceptable max height */
-  width: auto; /* Maintain aspect ratio */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Ensure it's properly aligned */
+  img {
+    max-height: 70px; /* Set acceptable max height */
+    width: auto; /* Maintain aspect ratio */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure it's properly aligned */
+  }
 }
 
 /* Hamburger menu styling */
@@ -196,13 +200,6 @@ main {
   flex: 1; /* Occupies remaining space between header and footer */
 }
 
-footer {
-  padding: 1rem;
-  background-color: #131313;
-  color: gray;
-  margin-top: 0;
-}
-
 body {
   background-attachment: fixed; /* Fixes the background */
   background-size: cover; /* Ensures the background covers the entire viewport */
@@ -212,10 +209,10 @@ body {
   flex-direction: column;
   margin: 0; /* Removes undesirable gaps */
   min-height: 100vh; /* Makes body take full viewport height */
-}
 
-body.background-home {
-  background-image: url("../assets/images/motoguzzi0.jpg");
+  &.background-home {
+    background-image: url("../assets/images/motoguzzi0.jpg");
+  }
 }
 
 h1 {
@@ -228,21 +225,13 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.main-banner-container img {
-  max-height: 200px; /* Set acceptable max height */
-  width: auto; /* Maintain aspect ratio */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Ensure it's properly aligned */
-}
-
-a {
-  cursor: pointer;
-}
-
-.nav-link img {
-  max-width: 30px;
+  img {
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    display: block;
+  }
 }
 
 .nav-link img, .dropdown img {
@@ -257,4 +246,42 @@ a {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+footer {
+  padding: 1rem;
+  background-color: #131313;
+  color: gray;
+  margin-top: 0;
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+
+    .footer-info-container, .footer-links-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      a {
+        color: #8e8d8d;
+
+        &:hover {
+          color: #a6a6a6;
+        }
+      }
+
+      img {
+        max-height: 70px;
+        width: auto;
+        height: auto;
+        display: block;
+      }
+
+      h3 {
+        margin: 0.5rem 0;
+        color: #a6a6a6;
+      }
+    }
+  }
 }

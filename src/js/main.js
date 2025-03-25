@@ -1,4 +1,4 @@
-import '../css/styles.css';
+import '../css/styles.scss';
 
 document.addEventListener("DOMContentLoaded", () => {
   const languageSwitcherMenu = document.getElementById("language-switcher-menu");
