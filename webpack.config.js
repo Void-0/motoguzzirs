@@ -56,7 +56,7 @@ module.exports = (env, argv) => {
     mode: isProduction ? 'production' : 'development',
     entry: generateEntries(),
     output: {
-      path: path.resolve(__dirname, 'docs'),
+      path: path.resolve(__dirname, 'dist'),
       filename: 'js/[name].[contenthash].js', // Hashing remains for JS files
       publicPath: './',
       assetModuleFilename: 'assets/[name][ext]', // Ensure NO hash for assets in assets folder
