@@ -153,6 +153,11 @@ module.exports = (env, argv) => {
             to: '.', // Optional for GitHub Pages
             noErrorOnMissing: true,
           },
+          {
+            from: path.resolve(__dirname, 'CNAME'),
+            to: '.',
+            noErrorOnMissing: true,
+          },
         ],
       }),
     ],
