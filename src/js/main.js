@@ -72,16 +72,20 @@ document.addEventListener("DOMContentLoaded", () => {
           throw new Error(`Failed to load language file for ${language}`);
         }
         return response.json();
-      })
-      .then((languageData) => {
+      }).then((languageData) => {
         // Update the language switcher with the language name and icon
         const switcherContainer = document.querySelector('#language-switcher');
-        // const switcherSpan = document.querySelector('#language-switcher span');
         const switcherImg = switcherContainer.querySelector('img');
+        const switcherSpan = document.querySelector('#language-switcher span');
 
-        // if (switcherSpan) {
-        //   switcherSpan.textContent = languageData.languageName;
-        // }
+        if (switcherSpan) {
+          switcherSpan.textContent = languageData.languageName;
+        } else {
+          // If no <span> exists, create a new one and append it
+          const newSwitcherSpan = document.createElement('span');
+          newSwitcherSpan.textContent = languageData.languageName;
+          switcherContainer.prepend(newSwitcherSpan);
+        }
 
         if (switcherContainer) {
           if (switcherImg) {

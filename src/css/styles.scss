@@ -195,8 +195,9 @@ header {
 main {
   margin-top: 50vh;
   padding: 1rem;
-  color: #908f8f;
-  background-color: #1a1a1a;
+  //color: #bdbdbd;
+  color: white;
+  background-color: #424242;
   flex: 1; /* Occupies remaining space between header and footer */
 }
 
@@ -217,7 +218,7 @@ body {
 
 h1 {
   text-transform: uppercase;
-  color: #DD3333FF;
+  color: #ee151f;
   text-align: center;
 }
 
@@ -235,14 +236,15 @@ h1 {
 }
 
 .nav-link img, .dropdown img {
-  max-width: 30px;
+  max-width: 22px;
 }
 
-#language-switcher {
-  padding: 0 50px;
+#language-switcher-menu {
+  margin-left: -100%;
+  width: 200%;
 }
 
-#language-switcher-menu a {
+#language-switcher-menu a, a#language-switcher {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -262,6 +264,7 @@ footer {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      margin-right: 0.5rem;
 
       a {
         color: #8e8d8d;
@@ -272,6 +275,7 @@ footer {
       }
 
       img {
+        margin: 0 0 0.5rem 0;
         max-height: 70px;
         width: auto;
         height: auto;
