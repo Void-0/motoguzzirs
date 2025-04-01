@@ -66,6 +66,20 @@
   color: #872218;
 }
 
+tbody {
+  td {
+    span {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    a {
+      display: block;
+      font-size: 12px; // find a way to do better overflow
+    }
+  }
+}
+
 //.calendar-table .current-month {
 //  color: #fe3325;
 //}
@@ -78,6 +92,29 @@
   background-color: #afa6a678;
   //color: #fe3325;
   font-weight: bold;
+}
+
+#event-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0 10px 20px;
+
+  #event-title {
+    margin: 10px;
+    color: #fe3325;
+    text-align: center;
+  }
+
+  #event-thumbnail {
+    margin: 10px;
+    max-width: 300px;
+  }
+
+  #event-description {
+    margin: 10px;
+  }
 }
 
 //tr {

@@ -5,12 +5,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevButton = document.getElementById('prev-month');
   const nextButton = document.getElementById('next-month');
   const cells = document.querySelectorAll('.calendar-table tbody td');
+  const eventContainer = document.getElementById('event-container');
+  const eventTitle = document.getElementById('event-title');
+  const eventThumbnail = document.getElementById('event-thumbnail');
+  const eventDescription = document.getElementById('event-description');
+
   let currentMonth = new Date(); // Initialize with the current date
 
-  // Updates the content of the calendar
+  function updateEventContainer(event) {
+    eventTitle.textContent = event.title;
+    eventThumbnail.src = event.thumbnailUrl;
+    eventThumbnail.alt = event.title;
+    eventDescription.innerHTML = event.body;
+  }
+
+  function loadEvents(dateString) {
+    return fetch(`assets/events/${dateString}.json`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`No events found for ${dateString}`);
+        }
+        return response.json();
+      })
+      .catch(error => {
+        console.warn(error.message);
+        return [];
+      });
+  }
+
   function updateCalendar(date = new Date()) {
     const year = date.getFullYear();
     const month = date.getMonth();
+    const today = new Date();
 
     // Update title with the current month and year
     const monthName = date.toLocaleDateString('en', { month: 'long', year: 'numeric' });
@@ -20,18 +46,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
     const lastDateOfMonth = lastDayOfMonth.getDate();
-    const firstWeekday = firstDayOfMonth.getDay() || 7; // Convert Sunday (0) to 7
+    const firstWeekday = firstDayOfMonth.getDay() || 7;
 
     // Previous month's last day
     const lastDayOfPrevMonth = new Date(year, month, 0).getDate();
 
-    // Fill calendar cells
-    let prevMonthStart = lastDayOfPrevMonth - (firstWeekday - 2); // Start from this day
+    let prevMonthStart = lastDayOfPrevMonth - (firstWeekday - 2);
     let day = 1;
     let nextMonthDay = 1;
 
     cells.forEach((cell, index) => {
-      cell.className = ''; // Clear previous classes
+      cell.innerHTML = '';
+      cell.className = '';
 
       if (index < firstWeekday - 1) {
         // Fill in previous month's days
@@ -42,31 +68,44 @@ document.addEventListener("DOMContentLoaded", () => {
         cell.textContent = nextMonthDay++;
         cell.classList.add('next-month');
       } else {
-        // Fill in current month's days
-        cell.textContent = day++;
-        cell.classList.add('current-month');
+        const cellDate = new Date(year, month, day);
+        const dateString = cellDate.toISOString().split('T')[0];
 
-        // Highlight today's date
-        const today = new Date();
+        cell.classList.add('current-month');
         if (
           year === today.getFullYear() &&
           month === today.getMonth() &&
-          parseInt(cell.textContent, 10) === today.getDate()
+          day === today.getDate()
         ) {
           cell.classList.add('today');
         }
+
+        cell.innerHTML = `<span>${day++}</span>`;
+
+        loadEvents(dateString).then(events => {
+          events.forEach(event => {
+            const eventLink = document.createElement('a');
+            eventLink.textContent = event.title;
+            eventLink.href = '#';
+            eventLink.addEventListener('click', (e) => {
+              e.preventDefault();
+              updateEventContainer(event);
+            });
+            cell.appendChild(eventLink);
+          });
+        });
       }
     });
   }
 
   // Event listeners for buttons
   prevButton.addEventListener('click', () => {
-    currentMonth.setMonth(currentMonth.getMonth() - 1); // Go to previous month
+    currentMonth.setMonth(currentMonth.getMonth() - 1);
     updateCalendar(currentMonth);
   });
 
   nextButton.addEventListener('click', () => {
-    currentMonth.setMonth(currentMonth.getMonth() + 1); // Go to next month
+    currentMonth.setMonth(currentMonth.getMonth() + 1);
     updateCalendar(currentMonth);
   });
 
