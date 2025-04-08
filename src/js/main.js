@@ -3,6 +3,24 @@ import '../css/styles.scss';
 document.addEventListener('DOMContentLoaded', () => {
   const languageSwitcherMenu = document.getElementById('language-switcher-menu');
   const selectedLanguage = localStorage.getItem('language') || 'sr';
+  const languageSwitcher = document.getElementById('language-switcher');
+
+  // Ensure menu toggles visibility on click
+  languageSwitcher.addEventListener('click', (event) => {
+    event.stopPropagation(); // Prevent the click from bubbling up
+    languageSwitcherMenu.classList.toggle('visible');
+  });
+
+  // Close the menu if clicking outside
+  document.addEventListener('click', () => {
+    languageSwitcherMenu.classList.remove('visible');
+  });
+
+  // Prevent menu from closing when clicking inside the menu
+  languageSwitcherMenu.addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
+
 
   // Populate the language switcher menu
   populateLanguageSwitcherMenu().then(() => {
