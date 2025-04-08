@@ -91,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
               e.preventDefault();
               updateEventContainer(event);
             });
+            cell.classList.add('has-event');
             cell.appendChild(eventLink);
           });
         });

@@ -80,6 +80,20 @@ tbody {
   }
 }
 
+#calendar-container {
+  table {
+    td {
+      a {
+        color: #fe3325;
+      }
+    }
+
+    td.has-event {
+      background-color: #f1e4e478;
+    }
+  }
+}
+
 //.calendar-table .current-month {
 //  color: #fe3325;
 //}
@@ -117,6 +131,16 @@ tbody {
   }
 }
 
-//tr {
-//  color: #fe3325;
-//}
+@media (max-width: 768px) {
+  #calendar-container {
+    table {
+      thead {
+        font-size: 10px;
+      }
+
+      td, th {
+        padding: 0;
+      }
+    }
+  }
+}
