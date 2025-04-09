@@ -8,22 +8,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const eventContainer = document.getElementById('event-container');
   const eventTitle = document.getElementById('event-title');
   const eventThumbnail = document.getElementById('event-thumbnail');
+  const eventFbVideo = document.getElementById('event-fb-video');
   const eventDescription = document.getElementById('event-description');
+  const languageSwitcher = document.querySelector('.language-switcher-container ul li'); // Element with `data-language`
 
   let currentMonth = new Date(); // Initialize with the current date
+  let currentLanguage = languageSwitcher.getAttribute('data-language') || 'en'; // Default language
 
   function updateEventContainer(event) {
-    eventTitle.textContent = event.title;
-    eventThumbnail.src = event.thumbnailUrl;
-    eventThumbnail.alt = event.title;
-    eventDescription.innerHTML = event.body;
+    eventTitle.textContent = event.title || '';
+    eventThumbnail.src = event.thumbnailUrl || '';
+    eventThumbnail.alt = !!event.thumbnailUrl && event.title || '';
+    eventDescription.innerHTML = event.body || '';
+    if (event.fbVideo) {
+      addFacebookVideoEmbed(event.fbVideo);
+    } else {
+      removeFacebookVideoEmbed();
+    }
   }
 
   function loadEvents(dateString) {
-    return fetch(`assets/events/${dateString}.json`)
+    const filePath = `assets/events/${dateString}-${currentLanguage}.json`;
+    return fetch(filePath)
       .then(response => {
         if (!response.ok) {
-          throw new Error(`No events found for ${dateString}`);
+          throw new Error(`No events found for ${filePath}`);
         }
         return response.json();
       })
@@ -98,6 +107,49 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  function addFacebookVideoEmbed(url) {
+    if (!eventFbVideo) {
+      console.error('Element with id #event-fb-video not found.');
+      return;
+    }
+
+    // Add Facebook SDK script and video embed using innerHTML
+    eventFbVideo.innerHTML = `
+      <div class="fb-video"
+        data-href="${url}"
+        data-app-id="887156172104257"></div>
+    `;
+
+    // Trigger Facebook SDK to reparse the DOM
+    if (typeof FB !== 'undefined') {
+      FB.XFBML.parse(eventFbVideo);
+    } else {
+      console.error('Facebook SDK not loaded. Ensure the SDK is initialized.');
+    }
+  }
+
+  function removeFacebookVideoEmbed() {
+    if (!eventFbVideo) {
+      console.error('Element with id #event-fb-video not found.');
+      return;
+    }
+
+    eventFbVideo.innerHTML = '';
+  }
+
+
+  // Observe changes to the `data-language` attribute
+  const observer = new MutationObserver(() => {
+    const newLanguage = languageSwitcher.getAttribute('data-language');
+    if (newLanguage !== currentLanguage) {
+      currentLanguage = newLanguage;
+      updateCalendar(currentMonth); // Reload calendar with the new language
+      updateEventContainer({});
+    }
+  });
+
+  observer.observe(languageSwitcher, { attributes: true, attributeFilter: ['data-language'] });
 
   // Event listeners for buttons
   prevButton.addEventListener('click', () => {

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const languageSwitcherMenu = document.getElementById('language-switcher-menu');
   const selectedLanguage = localStorage.getItem('language') || 'sr';
   const languageSwitcher = document.getElementById('language-switcher');
+  const languageSwitcherContainer = document.querySelector('.language-switcher-container ul li'); // Main element to update `data-language`
 
   // Ensure menu toggles visibility on click
   languageSwitcher.addEventListener('click', (event) => {
@@ -60,11 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const menuItem = document.createElement('li');
           menuItem.setAttribute('data-language', languageCode);
           menuItem.innerHTML = `
-                <a>
-                  <img src="${iconPath}" alt="${languageCode}">
-                  <span>${data.languageName}</span>
-                </a>
-              `;
+            <a>
+              <img src="${iconPath}" alt="${languageCode}">
+              <span>${data.languageName}</span>
+            </a>
+          `;
           return menuItem; // Return the created menu item
         });
       });
@@ -84,6 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
    * Function to update the content dynamically based on the selected language.
    */
   function updateContent(language) {
+    // Set the `data-language` value
+    languageSwitcherContainer.setAttribute('data-language', language);
+
     fetch(`./assets/lang/${language}.json`, { cache: 'no-store' }) // Fetch the selected language file
     .then((response) => {
       if (!response.ok) {
