@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return fetch(filePath)
       .then(response => {
         if (!response.ok) {
-          throw new Error(`No events found for ${filePath}`);
+          throw new Error(`No events found for ${dateString}-${currentLanguage}`);
         }
         return response.json();
       })
@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let prevMonthStart = lastDayOfPrevMonth - (firstWeekday - 2);
     let day = 1;
     let nextMonthDay = 1;
+    let eventDate;
 
     cells.forEach((cell, index) => {
       cell.innerHTML = '';
@@ -70,41 +71,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (index < firstWeekday - 1) {
         // Fill in previous month's days
-        cell.textContent = prevMonthStart++;
+        eventDate = (new Date(year, month-1, prevMonthStart+1)).toISOString().split('T')[0];
+        cell.innerHTML = `<span>${prevMonthStart++}</span>`;
         cell.classList.add('prev-month');
       } else if (day > lastDateOfMonth) {
         // Fill in next month's days
-        cell.textContent = nextMonthDay++;
+        eventDate = (new Date(year, month+1, nextMonthDay+1)).toISOString().split('T')[0];
+        cell.innerHTML = `<span>${nextMonthDay++}</span>`;
         cell.classList.add('next-month');
       } else {
-        const cellDate = new Date(year, month, day);
-        const dateString = cellDate.toISOString().split('T')[0];
+        eventDate = (new Date(year, month, day+1)).toISOString().split('T')[0];
 
         cell.classList.add('current-month');
-        if (
-          year === today.getFullYear() &&
-          month === today.getMonth() &&
-          day === today.getDate()
-        ) {
+        if (year === today.getFullYear() && month === today.getMonth() && day === today.getDate()) {
           cell.classList.add('today');
         }
 
         cell.innerHTML = `<span>${day++}</span>`;
-
-        loadEvents(dateString).then(events => {
-          events.forEach(event => {
-            const eventLink = document.createElement('a');
-            eventLink.textContent = event.title;
-            eventLink.href = '#';
-            eventLink.addEventListener('click', (e) => {
-              e.preventDefault();
-              updateEventContainer(event);
-            });
-            cell.classList.add('has-event');
-            cell.appendChild(eventLink);
-          });
-        });
       }
+
+      loadEvents(eventDate).then(events => {
+        events.forEach(event => {
+          const eventLink = document.createElement('a');
+          eventLink.textContent = event.title;
+          eventLink.href = '#';
+          eventLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            updateEventContainer(event);
+          });
+          cell.classList.add('has-event');
+          cell.appendChild(eventLink);
+        });
+      });
     });
   }
 
